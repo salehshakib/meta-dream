@@ -109,7 +109,7 @@ export default function CreateTradeAccount() {
           </div>
         ) : (
           <div className="flex gap-8 w-full">
-            <CreateAccountForm />
+            <CreateAccountForm accountType={selectedCard} />
             <AccountTypeCard
               key={selectedAccountType.key}
               value={selectedAccountType.key}

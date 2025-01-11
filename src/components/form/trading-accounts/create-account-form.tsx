@@ -20,18 +20,26 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CreateAccountSchema, schema } from "@/schemas/create-account-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaChevronRight } from "react-icons/fa";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { toast } from "sonner";
 
-export default function CreateAccountForm() {
+export default function CreateAccountForm({
+  accountType,
+}: {
+accountType: string
+}) {
+  const router = useRouter();
+
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const form = useForm<CreateAccountSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
-      accountType: "demo",
+      accountType: 'demo',
       leverage: "1:200",
       currency: "USD",
       nickname: "saleh",
@@ -40,7 +48,31 @@ export default function CreateAccountForm() {
   });
 
   const onSubmit = (data: CreateAccountSchema) => {
-    console.log(data);
+    const accountData = {
+      ...data,
+      id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`, 
+      type: accountType,
+      platform: "mt5",
+    };
+
+    const existingData = JSON.parse(localStorage.getItem("accountData") || "[]") as CreateAccountSchema[];
+
+    const updatedData = Array.isArray(existingData) ? [...existingData, accountData] : [accountData];
+
+
+    localStorage.setItem("accountData", JSON.stringify(updatedData));
+
+    toast.success("Account created successfully");
+
+    form.reset({
+      accountType: 'demo',
+      leverage: "1:200",
+      currency: "USD",
+      nickname: "saleh",
+      password: "",
+    });
+
+    router.push("/");
   };
 
   return (
@@ -191,14 +223,14 @@ export default function CreateAccountForm() {
           </div>
 
           <div className="flex items-center justify-between mt-10">
-            <div
+            <Button
               className="rounded-lg cursor-pointer flex items-center justify-center gap-2 border px-6 py-3 bg-[#2A8EFF] text-white
               hover:bg-[#1F73D8] hover:border-[#1F73D8] text-sm shadow-sm duration-300"
-              // onClick={() => setCurrent(1)}
+              type="submit"
             >
               Create Account
               <FaChevronRight />
-            </div>
+            </Button>
           </div>
         </form>
       </Form>

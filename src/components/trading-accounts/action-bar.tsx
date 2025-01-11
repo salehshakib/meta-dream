@@ -12,11 +12,21 @@ import { Input } from "../ui/input";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import Link from "next/link";
 
-export default function TradingAccountsActionBar() {
+export default function TradingAccountsActionBar({
+  view,
+  setView,
+  type,
+  setType,
+}: {
+  view: string;
+  setView: (view: string) => void;
+  type: string;
+  setType: (type: string) => void;
+}) {
   return (
     <div className="w-full px-4 py-3 flex border-b items-center justify-between">
       <div className="flex items-center gap-3">
-        <Tabs defaultValue="real">
+        <Tabs value={type} onValueChange={setType}>
           <TabsList>
             <TabsTrigger value="real" className="px-14 py-[6px]">
               Real
@@ -25,10 +35,6 @@ export default function TradingAccountsActionBar() {
               Demo
             </TabsTrigger>
           </TabsList>
-          {/* <TabsContent value="real">
-          Make changes to your account here.
-        </TabsContent>
-        <TabsContent value="demo">Change your password here.</TabsContent> */}
         </Tabs>
         <Link
           className="rounded-lg flex items-center justify-center gap-2 h-10 border px-6 hover:bg-[#EDF2F7] hover:border-[#EDF2F7] text-base shadow-sm duration-300"
@@ -53,12 +59,12 @@ export default function TradingAccountsActionBar() {
           </SelectContent>
         </Select>
 
-        <Tabs defaultValue="real">
+        <Tabs value={view} onValueChange={setView}>
           <TabsList>
-            <TabsTrigger value="real" className="px-4 h-full">
+            <TabsTrigger value="list" className="px-4 h-full">
               <FaList size={17} />
             </TabsTrigger>
-            <TabsTrigger value="demo" className="px-4 h-full">
+            <TabsTrigger value="grid" className="px-4 h-full">
               <LuLayoutGrid size={17} />
             </TabsTrigger>
           </TabsList>

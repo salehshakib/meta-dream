@@ -1,10 +1,6 @@
 import { z } from "zod";
 
-const passRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
-const passValidationMsg =
-  "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character";
 
 const schema = z.object({
   accountType: z.enum(["real", "demo"], {
@@ -18,9 +14,10 @@ const schema = z.object({
   }),
   nickname: z.string().min(1, "Nickname is required"),
   password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long" })
-    .regex(passRegex, { message: passValidationMsg }),
+  .string()
+  .regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/, "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number"),
+
+    
 });
 
 type CreateAccountSchema = z.infer<typeof schema>;

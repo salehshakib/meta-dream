@@ -3,16 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/shared/sidebar";
 import Header from "@/components/shared/header";
+import { Toaster } from "@/components/ui/sonner";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -40,6 +33,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+        <Toaster />
       </body>
     </html>
   );
