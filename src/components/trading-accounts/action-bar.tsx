@@ -1,9 +1,3 @@
-import { LuLayoutGrid, LuPlus } from "react-icons/lu";
-import { Button } from "../ui/button";
-import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
-import { FaList } from "react-icons/fa";
-import { Input } from "../ui/input";
-import { CiSearch } from "react-icons/ci";
 import {
   Select,
   SelectContent,
@@ -11,10 +5,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CiSearch } from "react-icons/ci";
+import { FaList } from "react-icons/fa";
+import { LuLayoutGrid, LuPlus } from "react-icons/lu";
+import { Input } from "../ui/input";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+import Link from "next/link";
 
 export default function TradingAccountsActionBar() {
   return (
-    <div className="w-full px-4 py-3 flex  items-center justify-between">
+    <div className="w-full px-4 py-3 flex border-b items-center justify-between">
       <div className="flex items-center gap-3">
         <Tabs defaultValue="real">
           <TabsList>
@@ -30,13 +30,12 @@ export default function TradingAccountsActionBar() {
         </TabsContent>
         <TabsContent value="demo">Change your password here.</TabsContent> */}
         </Tabs>
-        <Button
-          variant={"outline"}
-          className="rounded-lg text-base"
-          size={"lg"}
+        <Link
+          className="rounded-lg flex items-center justify-center gap-2 h-10 border px-6 hover:bg-[#EDF2F7] hover:border-[#EDF2F7] text-base shadow-sm duration-300"
+          href="/create-trade-account"
         >
           <LuPlus /> Create new account
-        </Button>
+        </Link>
       </div>
 
       <div className="flex items-center gap-3">
